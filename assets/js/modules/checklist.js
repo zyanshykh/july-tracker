@@ -1,57 +1,110 @@
-import { Storage } from './storage.js';
+import { storage } from './storage.js';
 
 export function initChecklist() {
     const form = document.getElementById('checklist-form');
     const input = document.getElementById('checklist-input');
-    const listContainer = document.getElementById('checklist-items');
+    const list = document.getElementById('checklist-container');
 
-    let items = Storage.get('checklist_items', [
-        { id: 1, text: 'Review July goals and targets', completed: false },
-        { id: 2, text: 'Commit code changes to branch', completed: true }
-    ]);
+    if (!form || !input || !list) return;
 
-    function render() {
-        listContainer.innerHTML = '';
-        items.forEach(item => {
+    let tasks = storage.get('july_tasks') || [];
+    let editId = null;
+
+    // Render Function (Read)
+    function renderTasks() {
+        list.innerHTML = '';
+        if (tasks.length === 0) {
+            list.innerHTML = `<p class="empty-text">No missions added for today yet!</p>`;
+            return;
+        }
+
+        tasks.forEach(task => {
             const li = document.createElement('li');
-            li.className = `todo-item ${item.completed ? 'completed' : ''}`;
+            li.className = `checklist-item ${task.completed ? 'completed' : ''}`;
             li.innerHTML = `
-                <div style="display:flex; align-items:center; gap:0.5rem;">
-                    <input type="checkbox" ${item.completed ? 'checked' : ''} data-id="${item.id}">
-                    <span>${item.text}</span>
+                <div class="task-info">
+                    <input type="checkbox" ${task.completed ? 'checked' : ''} data-id="${task.id}">
+                    <span>${task.text}</span>
                 </div>
-                <button class="btn-del" data-id="${item.id}"><i class='bx bx-trash'></i></button>
+                <div class="task-actions">
+                    <button class="edit-btn" data-id="${task.id}">✏️</button>
+                    <button class="delete-btn" data-id="${task.id}">🗑️</button>
+                </div>
             `;
-            listContainer.appendChild(li);
+            list.appendChild(li);
         });
+        
+        // Update Dashboard Statistics Card dynamically if applicable
+        updateDashboardStats();
     }
 
+    // Handle Create & Update
     form.addEventListener('submit', (e) => {
         e.preventDefault();
-        const newItem = {
-            id: Date.now(),
-            text: input.value.trim(),
-            completed: false
-        };
-        items.push(newItem);
-        Storage.set('checklist_items', items);
+        const text = input.value.trim();
+        if (!text) return;
+
+        if (editId) {
+            // Update Mode
+            tasks = tasks.map(t => t.id === editId ? { ...t, text } : t);
+            editId = null;
+            form.querySelector('button[type="submit"]').innerText = 'Add Mission';
+        } else {
+            // Create Mode
+            const newTask = {
+                id: Date.now().toString(),
+                text: text,
+                completed: false
+            };
+            tasks.push(newTask);
+        }
+
+        storage.set('july_tasks', tasks);
+        renderTasks();
         input.value = '';
-        render();
     });
 
-    listContainer.addEventListener('click', (e) => {
-        const id = parseInt(e.target.closest('[data-id]')?.dataset.id);
+    // Handle Actions (Toggle Complete, Edit, Delete)
+    list.addEventListener('click', (e) => {
+        const target = e.target;
+        const id = target.dataset.id;
+
         if (!id) return;
 
-        if (e.target.type === 'checkbox') {
-            items = items.map(item => item.id === id ? { ...item, completed: e.target.checked } : item);
-        } else if (e.target.closest('.btn-del')) {
-            items = items.filter(item => item.id !== id);
+        // Toggle Complete
+        if (target.type === 'checkbox') {
+            tasks = tasks.map(t => t.id === id ? { ...t, completed: target.checked } : t);
+            storage.set('july_tasks', tasks);
+            renderTasks();
         }
-        
-        Storage.set('checklist_items', items);
-        render();
+
+        // Edit Trigger
+        if (target.classList.contains('edit-btn')) {
+            const taskToEdit = tasks.find(t => t.id === id);
+            if (taskToEdit) {
+                input.value = taskToEdit.text;
+                editId = id;
+                form.querySelector('button[type="submit"]').innerText = 'Update Mission';
+                input.focus();
+            }
+        }
+
+        // Delete Trigger
+        if (target.classList.contains('delete-btn')) {
+            tasks = tasks.filter(t => t.id !== id);
+            storage.set('july_tasks', tasks);
+            renderTasks();
+        }
     });
 
-    render();
+    function updateDashboardStats() {
+        const totalCard = document.getElementById('total-tasks-stat');
+        if (totalCard) {
+            const completed = tasks.filter(t => t.completed).length;
+            totalCard.innerText = `${completed}/${tasks.length}`;
+        }
+    }
+
+    // Initial Load
+    renderTasks();
 }

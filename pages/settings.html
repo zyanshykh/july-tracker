@@ -1,0 +1,33 @@
+<div class="settings-wrapper">
+    <div class="page-header">
+        <h2>⚙️ System Control & Settings</h2>
+        <p>Manage app configurations, user customization parameters, and persistent memory nodes.</p>
+    </div>
+
+    <div class="notes-container container-card">
+        <h3>📝 System Logs / Daily Notes Clipboard</h3>
+        <form id="notes-form" class="notes-system-block">
+            <textarea id="system-notes-area" rows="6" placeholder="Write down structural ideas, API routes, configurations, or personal project logs here... Data auto-saves to LocalStorage."></textarea>
+            <div class="notes-action-bar">
+                <span id="auto-save-status" class="status-indicator">All edits saved locally</span>
+                <button type="button" id="clear-notes-btn" class="btn-danger-outline">Wipe Notebook</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="preferences-grid">
+        <div class="pref-card container-card">
+            <h4>🎨 Theme & Colors</h4>
+            <p>Customize structural layout displays. System defaults sync automatically using layout triggers.</p>
+            <div class="toggle-placeholder-info">
+                <span>Toggle Theme Mode via primary Navigation Panel sidebar layout controllers anytime.</span>
+            </div>
+        </div>
+
+        <div class="pref-card container-card">
+            <h4>💾 Dangerous Operations Zone</h4>
+            <p>Perform direct complete engine resets. This structural operation safely removes cached tracking indices.</p>
+            <button id="factory-reset-btn" class="btn-danger">Purge Application Cache</button>
+        </div>
+    </div>
+</div>

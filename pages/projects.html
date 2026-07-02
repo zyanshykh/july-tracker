@@ -1,0 +1,47 @@
+<div class="projects-wrapper">
+    <div class="page-header">
+        <h2>📂 Active Project Manager</h2>
+        <p>Plan milestones, configure deadlines, and trace total production hours dynamically.</p>
+    </div>
+
+    <div class="form-container container-card">
+        <h3>🔧 Configure Project Details</h3>
+        <form id="project-form" class="crud-grid-form">
+            <div class="form-group">
+                <label for="proj-title">Project Title</label>
+                <input type="text" id="proj-title" placeholder="e.g., Build E-Commerce SPA" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="proj-priority">Priority Matrix</label>
+                <select id="proj-priority">
+                    <option value="High">🔴 High Priority</option>
+                    <option value="Medium" selected>🟡 Medium Priority</option>
+                    <option value="Low">🟢 Low Priority</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="proj-deadline">Deadline Target</label>
+                <input type="date" id="proj-deadline" required>
+            </div>
+
+            <div class="form-group">
+                <label for="proj-hours">Logged Build Hours</label>
+                <input type="number" id="proj-hours" placeholder="e.g., 14" min="0" step="0.5">
+            </div>
+
+            <div class="form-btn-wrapper">
+                <button type="submit" class="btn-primary">Create Project</button>
+                <button type="reset" class="btn-secondary">Clear Inputs</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="projects-display-section">
+        <h3>🚀 Current Project Runway</h3>
+        <div id="projects-grid" class="projects-card-grid">
+            <p class="empty-text">No active projects found. Start building!</p>
+        </div>
+    </div>
+</div>

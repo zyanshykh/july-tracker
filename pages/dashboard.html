@@ -1,0 +1,37 @@
+<div class="dashboard-wrapper">
+    <div class="dashboard-hero">
+        <h2>Welcome Back, Captain! 🚀</h2>
+        <p>Here is your production metrics overview for the month of July.</p>
+    </div>
+
+    <div class="stats-grid">
+        <div class="stat-card">
+            <h4>Today's Missions</h4>
+            <p id="total-tasks-stat">0/0</p>
+            <small>Completed vs Total Tasks</small>
+        </div>
+        <div class="stat-card">
+            <h4>Total Revenue</h4>
+            <p id="total-revenue-value">$0.00</p>
+            <small>Synced from Analytics</small>
+        </div>
+        <div class="stat-card">
+            <h4>Daily Streak</h4>
+            <p>🔥 12 Days</p>
+            <small>Keep consistency alive!</small>
+        </div>
+    </div>
+
+    <div class="checklist-section container-card">
+        <h3>🎯 Today's Mission Checklist</h3>
+        
+        <form id="checklist-form" class="crud-form-row">
+            <input type="text" id="checklist-input" placeholder="Enter your next mission task..." required autocomplete="off">
+            <button type="submit">Add Mission</button>
+        </form>
+
+        <ul id="checklist-container" class="checklist-list-group">
+            <p class="empty-text">No missions added for today yet!</p>
+        </ul>
+    </div>
+</div>

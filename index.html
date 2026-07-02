@@ -3,141 +3,70 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>July Tracker v2.0</title>
+    <title>July Tracker v2.0 - Core Dashboard</title>
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
 
     <div class="app-container">
+        
         <aside class="sidebar">
             <div class="sidebar-brand">
                 <i class="bx bx-calendar-check"></i>
                 <span>July Tracker</span>
             </div>
+            
             <nav class="sidebar-menu">
-                <a href="#" class="active"><i class="bx bx-grid-alt"></i> Dashboard</a>
-                <a href="#"><i class="bx bx-task"></i> Projects</a>
-                <a href="#"><i class="bx bx-bar-chart-alt-2"></i> Analytics</a>
-                <a href="#"><i class="bx bx-cog"></i> Settings</a>
+                <a href="#dashboard" class="nav-link active" data-target="dashboard">
+                    <i class="bx bx-grid-alt"></i> <span>Dashboard</span>
+                </a>
+                <a href="#projects" class="nav-link" data-target="projects">
+                    <i class="bx bx-task"></i> <span>Projects</span>
+                </a>
+                <a href="#analytics" class="nav-link" data-target="analytics">
+                    <i class="bx bx-bar-chart-alt-2"></i> <span>Analytics</span>
+                </a>
+                <a href="#settings" class="nav-link" data-target="settings">
+                    <i class="bx bx-cog"></i> <span>Settings</span>
+                </a>
             </nav>
-            <div class="sidebar-footer">
-                <p>v2.0 Selected</p>
+
+            <div class="sidebar-user-profile">
+                <i class='bx bx-user-circle'></i>
+                <span>Developer Mode</span>
             </div>
         </aside>
 
-        <main class="main-content">
+        <div class="main-layout-wrapper">
+            
             <header class="main-header">
                 <div class="header-info">
-                    <h1 id="header-date">Loading Date...</h1>
+                    <h1 id="header-date">Loading System Date...</h1>
                     <p id="header-time">00:00:00 AM</p>
                 </div>
-                <button id="theme-toggle" class="btn-icon" aria-label="Toggle Theme">
-                    <i class="bx bx-moon"></i>
-                </button>
+                <div class="header-actions">
+                    <button id="theme-toggle" class="btn-icon" aria-label="Toggle Theme">
+                        <i class="bx bx-moon"></i>
+                    </button>
+                </div>
             </header>
 
-            <div class="dashboard-grid">
-                
-                <section class="card card-hero">
-                    <h3>July Monthly Progress</h3>
-                    <div class="progress-container">
-                        <div class="progress-bar-wrapper">
-                            <div class="progress-bar" id="monthly-progress-bar" style="width: 0%"></div>
-                        </div>
-                        <span id="progress-percent">0% Completed</span>
+            <main class="content-body">
+                <div id="router-view">
                     </div>
-                </section>
+            </main>
 
-                <section class="stats-row">
-                    <div class="card stat-card">
-                        <i class="bx bx-zap icon-streak"></i>
-                        <div>
-                            <h4 id="stat-streak">0 Days</h4>
-                            <p>Daily Streak</p>
-                        </div>
-                    </div>
-                    <div class="card stat-card">
-                        <i class="bx bx-git-branch icon-commits"></i>
-                        <div>
-                            <h4 id="stat-commits">0</h4>
-                            <p>GitHub Commits</p>
-                        </div>
-                    </div>
-                    <div class="card stat-card">
-                        <i class="bx bx-time-five icon-hours"></i>
-                        <div>
-                            <h4 id="stat-hours">0 hrs</h4>
-                            <p>Build Hours</p>
-                        </div>
-                    </div>
-                </section>
+            <footer class="main-footer">
+                <div class="footer-left">
+                    <p>&copy; 2026 <strong>July Tracker Suite v2.0</strong>. All Rights Reserved.</p>
+                </div>
+                <div class="footer-right">
+                    <span>Status: <span class="status-indicator-online"></span> Production</span>
+                </div>
+            </footer>
 
-                <section class="card card-checklist">
-                    <h3><i class="bx bx-list-check"></i> Today's Mission (Daily Checklist)</h3>
-                    <form id="checklist-form" class="flex-input">
-                        <input type="text" id="checklist-input" placeholder="Add a vital task..." required>
-                        <button type="submit" class="btn-primary">Add</button>
-                    </form>
-                    <ul id="checklist-items" class="todo-list"></ul>
-                </section>
-
-                <section class="card card-projects">
-                    <h3><i class="bx bx-folder-open"></i> Project Manager</h3>
-                    <form id="project-form" class="project-form-grid">
-                        <input type="text" id="proj-title" placeholder="Project Name" required>
-                        <select id="proj-priority">
-                            <option value="Low">Low Priority</option>
-                            <option value="Medium" selected>Medium Priority</option>
-                            <option value="High">High Priority</option>
-                        </select>
-                        <input type="date" id="proj-deadline" required>
-                        <button type="submit" class="btn-primary">Track Project</button>
-                    </form>
-                    <div class="table-responsive">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Project</th>
-                                    <th>Priority</th>
-                                    <th>Deadline</th>
-                                    <th>Status</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody id="project-list"></tbody>
-                        </table>
-                    </div>
-                </section>
-
-                <section class="card card-earnings">
-                    <h3><i class="bx bx-dollar-circle"></i> Freelancing Revenue & Earnings</h3>
-                    <div class="earnings-summary">
-                        <div>
-                            <h2 id="total-revenue">$0.00</h2>
-                            <p>Total Revenue</p>
-                        </div>
-                    </div>
-                    <form id="earnings-form" class="flex-input">
-                        <input type="number" id="earn-amount" placeholder="Amount ($)" step="0.01" required>
-                        <input type="text" id="earn-client" placeholder="Client / Project" required>
-                        <button type="submit" class="btn-primary">Add Revenue</button>
-                    </form>
-                </section>
-
-                <section class="card card-notes">
-                    <h3><i class="bx bx-note"></i> Daily Notes & Scratchpad</h3>
-                    <textarea id="notes-textarea" placeholder="Jot down quick thoughts, logs, or snippets..."></textarea>
-                    <p class="saved-status" id="notes-status">Auto-saved to LocalStorage</p>
-                </section>
-
-                <section class="card card-quote">
-                    <p id="quote-text">"Loading inspiration..."</p>
-                    <span id="quote-author">- System</span>
-                </section>
-
-            </div>
-        </main>
+        </div>
     </div>
 
     <script type="module" src="assets/js/app.js"></script>

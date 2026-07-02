@@ -1,0 +1,43 @@
+<div class="analytics-wrapper">
+    <div class="page-header">
+        <h2>📊 Financial Analytics & Revenue Ledger</h2>
+        <p>Monitor your project balances, freelance cash inflows, and invoicing statuses.</p>
+    </div>
+
+    <div class="form-container container-card">
+        <h3>💰 Log Transaction Flow</h3>
+        <form id="analytics-form" class="crud-form-inline">
+            <input type="text" id="earn-client" placeholder="Client or Source Name" required>
+            <input type="number" id="earn-amount" placeholder="Amount ($ USD)" min="1" step="0.01" required>
+            
+            <select id="earn-status">
+                <option value="Paid">✅ Paid</option>
+                <option value="Pending" selected>⏳ Pending</option>
+                <option value="Proposed">📝 Proposed</option>
+            </select>
+            
+            <button type="submit" class="btn-success">Log Revenue</button>
+        </form>
+    </div>
+
+    <div class="table-container container-card">
+        <h3>📋 Consolidated Earnings Stream</h3>
+        <div class="responsive-table-scroll">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Client/Source</th>
+                        <th>Revenue Val ($)</th>
+                        <th>Invoicing Status</th>
+                        <th>Control Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="earnings-table-body">
+                    <tr>
+                        <td colspan="4" class="text-center">No transactions logged yet.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

@@ -374,3 +374,108 @@ textarea {
     .main-content { padding: 1rem; }
     .flex-input { flex-direction: column; }
 }
+
+/* ==========================================
+   ROUTING VIEW STATES
+   ========================================== */
+.page-view {
+    display: none;
+    animation: fadeIn 0.25s ease-in-out forwards;
+}
+
+.page-view.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* ==========================================
+   GLOBAL DESIGN INTEGRATION & SPECIFIC WRAPPER
+   ========================================== */
+.main-layout-wrapper {
+    margin-left: 260px; /* Sidebar layout padding block */
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    width: calc(100% - 260px);
+}
+
+.content-body {
+    padding: 2rem;
+    flex-grow: 1; /* Pushes footer downwards */
+}
+
+/* ==========================================
+   NAVBAR / SIDEBAR EXTENSIONS
+   ========================================== */
+.sidebar-user-profile {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem;
+    border-top: 1px solid var(--border-color);
+    margin-top: auto;
+    color: var(--text-muted);
+}
+.sidebar-user-profile i {
+    font-size: 1.5rem;
+    color: var(--accent);
+}
+
+/* ==========================================
+   HEADER ACTIONS & STYLES
+   ========================================== */
+.main-header {
+    background-color: var(--bg-card);
+    padding: 1.25rem 2rem;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 90;
+    transition: var(--transition);
+}
+
+/* ==========================================
+   GLOBAL FOOTER COMPONENT
+   ========================================== */
+.main-footer {
+    background-color: var(--bg-card);
+    border-top: 1px solid var(--border-color);
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    transition: var(--transition);
+    margin-top: auto;
+}
+
+.status-indicator-online {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    background-color: var(--success);
+    border-radius: 50%;
+    margin-right: 2px;
+}
+
+/* ==========================================
+   RESPONSIVE LAYOUT BREAKPOINTS (MEDIA QUERIES)
+   ========================================== */
+@media (max-width: 992px) {
+    .main-layout-wrapper {
+        margin-left: 70px;
+        width: calc(100% - 70px);
+    }
+    .main-header, .main-footer {
+        padding: 1rem;
+    }
+}
