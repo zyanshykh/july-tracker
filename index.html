@@ -1,416 +1,145 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="en" data-theme="light">
 <head>
-    <!-- Meta -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <!-- Title -->
-    <title>Developer Dashboard | July Tracker</title>
-
-    <!-- CSS -->
+    <title>July Tracker v2.0</title>
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/style.css">
-
-    <!-- Google Font -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-    <!-- Font Awesome -->
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 </head>
-
 <body>
 
-    <!-- ================= HEADER ================= -->
-<header id="header">
+    <div class="app-container">
+        <aside class="sidebar">
+            <div class="sidebar-brand">
+                <i class="bx bx-calendar-check"></i>
+                <span>July Tracker</span>
+            </div>
+            <nav class="sidebar-menu">
+                <a href="#" class="active"><i class="bx bx-grid-alt"></i> Dashboard</a>
+                <a href="#"><i class="bx bx-task"></i> Projects</a>
+                <a href="#"><i class="bx bx-bar-chart-alt-2"></i> Analytics</a>
+                <a href="#"><i class="bx bx-cog"></i> Settings</a>
+            </nav>
+            <div class="sidebar-footer">
+                <p>v2.0 Selected</p>
+            </div>
+        </aside>
 
-    <div class="header-left">
+        <main class="main-content">
+            <header class="main-header">
+                <div class="header-info">
+                    <h1 id="header-date">Loading Date...</h1>
+                    <p id="header-time">00:00:00 AM</p>
+                </div>
+                <button id="theme-toggle" class="btn-icon" aria-label="Toggle Theme">
+                    <i class="bx bx-moon"></i>
+                </button>
+            </header>
 
-        <h1>🚀 Developer Productivity Dashboard</h1>
+            <div class="dashboard-grid">
+                
+                <section class="card card-hero">
+                    <h3>July Monthly Progress</h3>
+                    <div class="progress-container">
+                        <div class="progress-bar-wrapper">
+                            <div class="progress-bar" id="monthly-progress-bar" style="width: 0%"></div>
+                        </div>
+                        <span id="progress-percent">0% Completed</span>
+                    </div>
+                </section>
 
-        <p>Build • Learn • Ship • Repeat</p>
+                <section class="stats-row">
+                    <div class="card stat-card">
+                        <i class="bx bx-zap icon-streak"></i>
+                        <div>
+                            <h4 id="stat-streak">0 Days</h4>
+                            <p>Daily Streak</p>
+                        </div>
+                    </div>
+                    <div class="card stat-card">
+                        <i class="bx bx-git-branch icon-commits"></i>
+                        <div>
+                            <h4 id="stat-commits">0</h4>
+                            <p>GitHub Commits</p>
+                        </div>
+                    </div>
+                    <div class="card stat-card">
+                        <i class="bx bx-time-five icon-hours"></i>
+                        <div>
+                            <h4 id="stat-hours">0 hrs</h4>
+                            <p>Build Hours</p>
+                        </div>
+                    </div>
+                </section>
 
+                <section class="card card-checklist">
+                    <h3><i class="bx bx-list-check"></i> Today's Mission (Daily Checklist)</h3>
+                    <form id="checklist-form" class="flex-input">
+                        <input type="text" id="checklist-input" placeholder="Add a vital task..." required>
+                        <button type="submit" class="btn-primary">Add</button>
+                    </form>
+                    <ul id="checklist-items" class="todo-list"></ul>
+                </section>
+
+                <section class="card card-projects">
+                    <h3><i class="bx bx-folder-open"></i> Project Manager</h3>
+                    <form id="project-form" class="project-form-grid">
+                        <input type="text" id="proj-title" placeholder="Project Name" required>
+                        <select id="proj-priority">
+                            <option value="Low">Low Priority</option>
+                            <option value="Medium" selected>Medium Priority</option>
+                            <option value="High">High Priority</option>
+                        </select>
+                        <input type="date" id="proj-deadline" required>
+                        <button type="submit" class="btn-primary">Track Project</button>
+                    </form>
+                    <div class="table-responsive">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Project</th>
+                                    <th>Priority</th>
+                                    <th>Deadline</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="project-list"></tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <section class="card card-earnings">
+                    <h3><i class="bx bx-dollar-circle"></i> Freelancing Revenue & Earnings</h3>
+                    <div class="earnings-summary">
+                        <div>
+                            <h2 id="total-revenue">$0.00</h2>
+                            <p>Total Revenue</p>
+                        </div>
+                    </div>
+                    <form id="earnings-form" class="flex-input">
+                        <input type="number" id="earn-amount" placeholder="Amount ($)" step="0.01" required>
+                        <input type="text" id="earn-client" placeholder="Client / Project" required>
+                        <button type="submit" class="btn-primary">Add Revenue</button>
+                    </form>
+                </section>
+
+                <section class="card card-notes">
+                    <h3><i class="bx bx-note"></i> Daily Notes & Scratchpad</h3>
+                    <textarea id="notes-textarea" placeholder="Jot down quick thoughts, logs, or snippets..."></textarea>
+                    <p class="saved-status" id="notes-status">Auto-saved to LocalStorage</p>
+                </section>
+
+                <section class="card card-quote">
+                    <p id="quote-text">"Loading inspiration..."</p>
+                    <span id="quote-author">- System</span>
+                </section>
+
+            </div>
+        </main>
     </div>
 
-    <div class="header-right">
-
-        <div class="date-time">
-
-            <h3 id="current-date">
-                Loading Date...
-            </h3>
-
-            <h2 id="current-time">
-                Loading Time...
-            </h2>
-
-        </div>
-
-    </div>
-
-    <div class="header-right">
-
-    <button id="theme-toggle" title="Toggle Theme">
-        🌙
-    </button>
-
-    <div class="date-time">
-
-        <h3 id="current-date">Loading Date...</h3>
-
-        <h2 id="current-time">Loading Time...</h2>
-
-    </div>
-
-</div>
-
-</header>
-
-    <!-- ================= SIDEBAR ================= -->
-    <aside id="sidebar">
-
-        <nav>
-
-            <ul>
-                <li>🏠 Dashboard</li>
-                <li>📁 Projects</li>
-                <li>📊 Analytics</li>
-                <li>💰 Earnings</li>
-                <li>💼 Freelancing</li>
-                <li>📝 Notes</li>
-                <li>⚙ Settings</li>
-            </ul>
-
-        </nav>
-
-    </aside>
-
-    <!-- ================= MAIN ================= -->
-    <main id="dashboard">
-
-<section id="hero">
-
-    <div class="progress-card">
-
-        <div class="progress-header">
-
-            <div>
-                <h2>🎯 July Challenge 2026</h2>
-                <p>Complete 30 Projects in 30 Days</p>
-            </div>
-
-            <div class="progress-percent">
-                <span>0%</span>
-            </div>
-
-        </div>
-
-        <div class="progress-bar">
-
-            <div class="progress-fill"></div>
-
-        </div>
-
-        <div class="progress-footer">
-
-            <span>Projects: 0 / 30</span>
-
-            <span>Target: 30</span>
-
-        </div>
-
-    </div>
-    
-</section>
-
-<section id="streak">
-
-    <div class="streak-card">
-
-        <div class="streak-icon">
-            🔥
-        </div>
-
-        <div class="streak-content">
-
-            <h2>Daily Streak</h2>
-
-            <h1>0 Days</h1>
-
-            <p>Keep building every day.</p>
-
-        </div>
-
-        <div class="streak-status">
-
-            <span class="badge">
-                Active
-            </span>
-
-        </div>
-
-    </div>
-
-</section>
-
-<section id="monthly-goal">
-
-    <div class="goal-card">
-
-        <div class="goal-header">
-
-            <h2>🎯 Monthly Goal</h2>
-
-            <span class="goal-status">
-                🚀 Just Started
-            </span>
-
-        </div>
-
-        <div class="goal-grid">
-
-            <div class="goal-item">
-
-                <h3>Projects</h3>
-
-                <p>0 / 30</p>
-
-            </div>
-
-            <div class="goal-item">
-
-                <h3>Build Hours</h3>
-
-                <p>0 / 150 hrs</p>
-
-            </div>
-
-            <div class="goal-item">
-
-                <h3>Revenue</h3>
-
-                <p>$0 / $200</p>
-
-            </div>
-
-            <div class="goal-item">
-
-                <h3>Progress</h3>
-
-                <p>0%</p>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-<section id="stats">
-
-    <h2>📊 Statistics</h2>
-
-    <div class="stats-grid">
-
-        <div class="stat-card">
-
-            <div class="stat-icon">📁</div>
-
-            <div class="stat-info">
-
-                <h3>Projects</h3>
-
-                <p>0 / 30</p>
-
-            </div>
-
-        </div>
-
-        <div class="stat-card">
-
-            <div class="stat-icon">⏱</div>
-
-            <div class="stat-info">
-
-                <h3>Build Hours</h3>
-
-                <p>0 / 150 hrs</p>
-
-            </div>
-
-        </div>
-
-        <div class="stat-card">
-
-            <div class="stat-icon">💻</div>
-
-            <div class="stat-info">
-
-                <h3>GitHub Commits</h3>
-
-                <p>0</p>
-
-            </div>
-
-        </div>
-
-        <div class="stat-card">
-
-            <div class="stat-icon">💰</div>
-
-            <div class="stat-info">
-
-                <h3>Revenue</h3>
-
-                <p>$0</p>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-<section id="quote">
-
-    <div class="quote-card">
-
-        <div class="quote-icon">
-            💡
-        </div>
-
-        <blockquote>
-
-            "Build. Learn. Ship. Repeat."
-
-        </blockquote>
-
-        <p class="quote-author">
-
-            — Aiden's July Challenge
-
-        </p>
-
-    </div>
-
-</section>
-
-<section id="today-mission">
-
-    <h2>✅ Today's Mission</h2>
-    <p id="task-progress"> 0 / 8 Completed </p>
-
-    <div class="checklist">
-
-        <label>
-            <input type="checkbox" class="task">
-            <span>Build 5 Hours</span>
-        </label>
-
-        <label>
-            <input type="checkbox" class="task">
-            Bug Fix
-        </label>
-
-        <label>
-            <input type="checkbox" class="task">
-            GitHub Commit
-        </label>
-
-        <label>
-            <input type="checkbox" class="task">
-            README Update
-        </label>
-
-        <label>
-            <input type="checkbox" class="task">
-            Deploy Project
-        </label>
-
-        <label>
-            <input type="checkbox" class="task">
-            Portfolio Update
-        </label>
-
-        <label>
-            <input type="checkbox" class="task">
-            Send Proposal
-        </label>
-
-        <label>
-            <input type="checkbox" class="task">
-            Learn Something New
-        </label>
-
-    </div>
-
-</section>
-
-        <section id="today-project">
-            <h2>📌 Today's Project</h2>
-            <span id="progress-projects">Projects : 0 / 30</span>
-            <p id="goal-progress">0%</p>
-            <div class="progress-fill" id="progress-fill"> </div>
-        </section>
-
-        <section id="active-projects">
-            <h2>🚀 Active Projects</h2>
-        </section>
-
-        <section id="archive-projects">
-            <h2>📂 Archive Projects</h2>
-        </section>
-
-        <section id="weekly-progress">
-            <h2>📅 Weekly Progress</h2>
-        </section>
-
-        <section id="earnings">
-            <h2>💰 Earnings Tracker</h2>
-        </section>
-
-        <section id="freelancing">
-            <h2>💼 Freelancing Tracker</h2>
-        </section>
-
-        <section id="portfolio">
-            <h2>🌐 Portfolio Progress</h2>
-        </section>
-
-        <section id="bug-fix">
-            <h2>🐞 Bug Fix Checklist</h2>
-        </section>
-
-        <section id="notes">
-            <h2>📝 Daily Notes</h2>
-        </section>
-
-        <section id="quote">
-            <h2>💡 Daily Quote</h2>
-        </section>
-
-    </main>
-
-    <!-- ================= FOOTER ================= -->
-    <footer id="footer">
-
-        <p>
-            Developer Productivity Dashboard • Version 1.0
-        </p>
-
-    </footer>
-
-    <!-- JavaScript -->
-    <script src="assets/js/app.js"></script>
-    <script src="assets/js/datetime.js"></script>
-    <script src="assets/js/theme.js"></script>
-    <script src="assets/js/storage.js"></script>
-    <script src="assets/js/dashboard.js"></script>
-
+    <script type="module" src="assets/js/app.js"></script>
 </body>
-
 </html>

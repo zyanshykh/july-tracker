@@ -1,30 +1,26 @@
-// ==============================
-// Theme Toggle
-// ==============================
+import { Storage } from './storage.js';
 
-const themeButton = document.getElementById("theme-toggle");
+export function initTheme() {
+    const toggleBtn = document.getElementById('theme-toggle');
+    const htmlEl = document.documentElement;
+    
+    let currentTheme = Storage.get('theme', 'light');
+    htmlEl.setAttribute('data-theme', currentTheme);
+    updateIcon(currentTheme);
 
-// Load saved theme
-const savedTheme = localStorage.getItem("theme");
+    toggleBtn.addEventListener('click', () => {
+        currentTheme = htmlEl.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+        htmlEl.setAttribute('data-theme', currentTheme);
+        Storage.set('theme', currentTheme);
+        updateIcon(currentTheme);
+    });
 
-if (savedTheme === "light") {
-
-    document.body.classList.add("light");
-
-    themeButton.textContent = "☀️";
-
+    function updateIcon(theme) {
+        const icon = toggleBtn.querySelector('i');
+        if (theme === 'dark') {
+            icon.className = 'bx bx-sun';
+        } else {
+            icon.className = 'bx bx-moon';
+        }
+    }
 }
-
-// Toggle Theme
-
-themeButton.addEventListener("click", () => {
-
-    document.body.classList.toggle("light");
-
-    const isLight = document.body.classList.contains("light");
-
-    themeButton.textContent = isLight ? "☀️" : "🌙";
-
-    localStorage.setItem("theme", isLight ? "light" : "dark");
-
-}); 

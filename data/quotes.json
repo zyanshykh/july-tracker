@@ -1,22 +1,18 @@
 [
   {
-    "quote": "Build. Learn. Ship. Repeat.",
-    "author": "Aiden's Challenge"
+    "text": "The secret of getting ahead is getting started.",
+    "author": "Mark Twain"
   },
   {
-    "quote": "Consistency beats motivation.",
-    "author": "Unknown"
+    "text": "Productivity is being able to do things that you were never able to do before.",
+    "author": "Franz Kafka"
   },
   {
-    "quote": "Done is better than perfect.",
-    "author": "Sheryl Sandberg"
+    "text": "Focus on being productive instead of busy.",
+    "author": "Tim Ferriss"
   },
   {
-    "quote": "Code every day.",
-    "author": "Developer Mindset"
-  },
-  {
-    "quote": "Fix bugs before adding features.",
-    "author": "Senior Engineer"
+    "text": "Today's accomplishments were yesterday's impossibilities.",
+    "author": "Robert H. Schuller"
   }
 ]

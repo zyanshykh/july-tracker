@@ -179,3 +179,19 @@ Notes
 ↓
 
 Quotes
+
+
+
+
+🎯 Coding Rules
+
+Har file mein:
+
+"use strict";
+JSDoc comments
+Single responsibility
+No duplicate code
+Reusable functions
+Clean naming
+ES6 syntax
+Responsive-first mindset

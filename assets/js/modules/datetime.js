@@ -1,32 +1,20 @@
-// ==============================
-// Live Date & Time
-// ==============================
+/**
+ * Date and Live Real-Time Tick Sync Module
+ */
+export function initDateTime() {
+    const dateEl = document.getElementById('header-date');
+    const timeEl = document.getElementById('header-time');
 
-function updateDateTime() {
+    function updateClock() {
+        const now = new Date();
+        
+        // Setup options to print readable system dates
+        const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        dateEl.textContent = now.toLocaleDateString('en-US', dateOptions);
+        
+        timeEl.textContent = now.toLocaleTimeString('en-US', { hour12: true });
+    }
 
-    const now = new Date();
-
-    const dateOptions = {
-        weekday: "long",
-        day: "2-digit",
-        month: "long",
-        year: "numeric"
-    };
-
-    const timeOptions = {
-        hour: "2-digit",
-        minute: "2-digit",
-        second: "2-digit"
-    };
-
-    document.getElementById("current-date").textContent =
-        now.toLocaleDateString("en-US", dateOptions);
-
-    document.getElementById("current-time").textContent =
-        now.toLocaleTimeString("en-US", timeOptions);
-
+    updateClock();
+    setInterval(updateClock, 1000);
 }
-
-updateDateTime();
-
-setInterval(updateDateTime, 1000);

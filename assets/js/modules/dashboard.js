@@ -1,41 +1,33 @@
-// ==============================
-// Dashboard Progress
-// ==============================
+import { Storage } from './storage.js';
 
-function updateDashboard() {
+/**
+ * Metric Card Operations & Monthly Progress Calculation Component
+ */
+export function initDashboard() {
+    // Dynamic July Monthly Target Bar Logic
+    const progressPercentEl = document.getElementById('progress-percent');
+    const progressBarEl = document.getElementById('monthly-progress-bar');
+    
+    function calculateJulyProgress() {
+        const now = new Date();
+        // Target calculation restricted targeting current year
+        if (now.getMonth() === 6) { // 6 is July in JS
+            const totalDays = new Date(now.getFullYear(), 7, 0).getDate(); 
+            const currentDay = now.getDate();
+            const percentage = Math.round((currentDay / totalDays) * 100);
+            
+            progressBarEl.style.width = `${percentage}%`;
+            progressPercentEl.textContent = `${percentage}% of Month Elapsed`;
+        } else {
+            progressBarEl.style.width = '100%';
+            progressPercentEl.textContent = 'July cycle absolute/ended';
+        }
+    }
 
-    const completedTasks =
-        document.querySelectorAll(".task:checked").length;
+    // Static Mock Data configurations for Feature metrics
+    document.getElementById('stat-streak').textContent = Storage.get('sys_streak', '5 Days');
+    document.getElementById('stat-commits').textContent = Storage.get('sys_commits', '42');
+    document.getElementById('stat-hours').textContent = Storage.get('sys_hours', '14.5 hrs');
 
-    const totalTasks =
-        document.querySelectorAll(".task").length;
-
-    const percent =
-        Math.round((completedTasks / totalTasks) * 100);
-
-    // Progress %
-
-    document.getElementById("progress-percent").textContent =
-        percent + "%";
-
-    // Progress Bar
-
-    document.getElementById("progress-fill").style.width =
-        percent + "%";
-
-    // Projects Card
-
-    document.getElementById("projects-count").textContent =
-        completedTasks + " / 30";
-
-    // Hero
-
-    document.getElementById("progress-projects").textContent =
-        "Projects : " + completedTasks + " / 30";
-
-    // Goal
-
-    document.getElementById("goal-progress").textContent =
-        percent + "%";
-
+    calculateJulyProgress();
 }
