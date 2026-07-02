@@ -24,10 +24,49 @@
 <body>
 
     <!-- ================= HEADER ================= -->
-    <header id="header">
+<header id="header">
+
+    <div class="header-left">
+
         <h1>🚀 Developer Productivity Dashboard</h1>
-        <p>July Challenge 2026</p>
-    </header>
+
+        <p>Build • Learn • Ship • Repeat</p>
+
+    </div>
+
+    <div class="header-right">
+
+        <div class="date-time">
+
+            <h3 id="current-date">
+                Loading Date...
+            </h3>
+
+            <h2 id="current-time">
+                Loading Time...
+            </h2>
+
+        </div>
+
+    </div>
+
+    <div class="header-right">
+
+    <button id="theme-toggle" title="Toggle Theme">
+        🌙
+    </button>
+
+    <div class="date-time">
+
+        <h3 id="current-date">Loading Date...</h3>
+
+        <h2 id="current-time">Loading Time...</h2>
+
+    </div>
+
+</div>
+
+</header>
 
     <!-- ================= SIDEBAR ================= -->
     <aside id="sidebar">
@@ -260,12 +299,62 @@
 
 </section>
 
-        <section id="today-mission">
-            <h2>✅ Today's Mission</h2>
-        </section>
+<section id="today-mission">
+
+    <h2>✅ Today's Mission</h2>
+    <p id="task-progress"> 0 / 8 Completed </p>
+
+    <div class="checklist">
+
+        <label>
+            <input type="checkbox" class="task">
+            <span>Build 5 Hours</span>
+        </label>
+
+        <label>
+            <input type="checkbox" class="task">
+            Bug Fix
+        </label>
+
+        <label>
+            <input type="checkbox" class="task">
+            GitHub Commit
+        </label>
+
+        <label>
+            <input type="checkbox" class="task">
+            README Update
+        </label>
+
+        <label>
+            <input type="checkbox" class="task">
+            Deploy Project
+        </label>
+
+        <label>
+            <input type="checkbox" class="task">
+            Portfolio Update
+        </label>
+
+        <label>
+            <input type="checkbox" class="task">
+            Send Proposal
+        </label>
+
+        <label>
+            <input type="checkbox" class="task">
+            Learn Something New
+        </label>
+
+    </div>
+
+</section>
 
         <section id="today-project">
             <h2>📌 Today's Project</h2>
+            <span id="progress-projects">Projects : 0 / 30</span>
+            <p id="goal-progress">0%</p>
+            <div class="progress-fill" id="progress-fill"> </div>
         </section>
 
         <section id="active-projects">
@@ -317,6 +406,10 @@
 
     <!-- JavaScript -->
     <script src="assets/js/app.js"></script>
+    <script src="assets/js/datetime.js"></script>
+    <script src="assets/js/theme.js"></script>
+    <script src="assets/js/storage.js"></script>
+    <script src="assets/js/dashboard.js"></script>
 
 </body>
 
