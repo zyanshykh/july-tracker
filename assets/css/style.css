@@ -479,3 +479,21 @@ textarea {
         padding: 1rem;
     }
 }
+
+/* SPA Active Route Visibility Controllers */
+#router-view {
+    display: block !important;
+    width: 100%;
+    min-height: 100%;
+    opacity: 1;
+    transition: opacity 0.2s ease-in-out;
+}
+
+/* Ensure empty dynamic states don't hide structural layouts completely */
+.empty-text {
+    color: var(--text-muted, #888);
+    font-style: italic;
+    padding: 1rem 0;
+    text-align: center;
+    width: 100%;
+}

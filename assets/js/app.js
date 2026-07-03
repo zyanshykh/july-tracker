@@ -201,3 +201,75 @@ if (route === 'dashboard') {
     const { initAnalytics } = await import('./modules/analytics.js');
     initAnalytics();
 }
+
+// Global Application Controller & Router System
+const routerView = document.getElementById('router-view');
+
+async function handleRouting() {
+    // URL hash clean filter parameters match setting
+    let hash = window.location.hash.replace('#', '') || 'dashboard';
+    
+    // Spelling fallback configuration parameters check
+    if (hash === 'analysis' || hash === 'analytics.httml') {
+        hash = 'analytics';
+    } else if (hash === 'project') {
+        hash = 'projects';
+    }
+
+    const pagePath = `pages/${hash}.html`;
+
+    try {
+        console.log(`[Router]: Fetching matrix target: ${pagePath}`);
+        const response = await fetch(pagePath);
+        
+        if (!response.ok) {
+            throw new Error(`HTTP Matrix Resolution Failure! Status: ${response.status}`);
+        }
+
+        const htmlContent = await response.text();
+        
+        // Dynamic HTML DOM Node Injection
+        routerView.innerHTML = htmlContent;
+        console.log(`[Router]: HTML view compiled successfully for target: #${hash}`);
+
+        // --- Execute Module Dependencies Isolation Protocols ---
+        switch(hash) {
+            case 'dashboard':
+                const { initChecklist } = await import('./modules/checklist.js');
+                initChecklist();
+                break;
+                
+            case 'projects':
+                const { initProjectManager } = await import('./modules/project.js');
+                initProjectManager();
+                break;
+                
+            case 'analytics':
+                const { initAnalytics } = await import('./modules/analytics.js');
+                initAnalytics();
+                break;
+                
+            case 'settings':
+                // Settings initialization logic or cleanup logic logs here
+                console.log("[Router]: Settings operational workspace module mounted.");
+                break;
+                
+            default:
+                console.warn(`[Router Warning]: Route state index undefined for: ${hash}`);
+        }
+
+    } catch (error) {
+        console.error("[Router Critical System Crash]:", error);
+        routerView.innerHTML = `
+            <div class="container-card error-boundary" style="border: 2px dashed #ff4a4a; padding: 2rem; text-align: center;">
+                <h3>⚠️ Page View Resolution Failure</h3>
+                <p>Failed to inject sub-component content dynamically into view container workspace.</p>
+                <small style="color: #ff4a4a; font-family: monospace;">Reason: ${error.message}</small>
+            </div>
+        `;
+    }
+}
+
+// Global Event Listeners Infrastructure Hooks
+window.addEventListener('hashchange', handleRouting);
+window.addEventListener('DOMContentLoaded', handleRouting);
