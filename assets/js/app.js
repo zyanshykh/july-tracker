@@ -26,7 +26,9 @@ const ROUTES = {
     },
     settings: async () => {
         const { initNotes } = await import('./modules/notes.js');
+        const { initBackup } = await import('./modules/backup.js');
         initNotes();
+        initBackup();
     }
 };
 

@@ -15,18 +15,29 @@
         </form>
     </div>
 
+    <div class="container-card">
+        <h3>💾 Backup &amp; Restore</h3>
+        <p class="card-hint">Your data lives only in this browser. Download a backup file to keep it safe, or to move it to another device or browser.</p>
+        <div class="backup-actions">
+            <button type="button" id="export-data-btn" class="btn-primary">⬇️ Export Backup</button>
+            <button type="button" id="import-data-btn" class="btn-secondary">⬆️ Import Backup</button>
+            <input type="file" id="import-file-input" accept="application/json,.json" hidden>
+        </div>
+        <p id="backup-status" class="backup-status" role="status" aria-live="polite"></p>
+    </div>
+
     <div class="preferences-grid">
         <div class="pref-card container-card">
             <h4>🎨 Theme & Colors</h4>
             <p>Customize structural layout displays. System defaults sync automatically using layout triggers.</p>
             <div class="toggle-placeholder-info">
-                <span>Toggle Theme Mode via primary Navigation Panel sidebar layout controllers anytime.</span>
+                <span>Toggle Theme Mode via the moon/sun button in the top header anytime.</span>
             </div>
         </div>
 
         <div class="pref-card container-card">
-            <h4>💾 Dangerous Operations Zone</h4>
-            <p>Perform direct complete engine resets. This structural operation safely removes cached tracking indices.</p>
+            <h4>🗑️ Dangerous Operations Zone</h4>
+            <p>Perform direct complete engine resets. This removes all missions, projects, earnings and notes stored in this browser.</p>
             <button id="factory-reset-btn" class="btn-danger">Purge Application Cache</button>
         </div>
     </div>

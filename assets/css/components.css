@@ -202,6 +202,91 @@ button { font-family: inherit; }
 .pref-card p { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1rem; }
 .toggle-placeholder-info { font-size: 0.85rem; color: var(--text-muted); }
 
+/* ==========================================
+   VERSION 3 ADDITIONS
+   ========================================== */
+
+.summary-line { color: var(--text-muted); font-size: 0.9rem; margin: 0.25rem 0 1rem; }
+.card-hint { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1rem; }
+.section-title-row { display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; }
+.section-title-row select { width: auto; }
+
+/* ---------- Task form, toolbar and items ---------- */
+.task-form { flex-wrap: wrap; }
+.task-form input[type="text"] { flex: 1 1 220px; width: auto; }
+.task-form select,
+.task-form input[type="date"] { flex: 0 0 auto; width: auto; }
+
+.task-toolbar { display: flex; gap: 0.5rem; margin-bottom: 1rem; flex-wrap: wrap; align-items: center; }
+.task-toolbar input[type="search"] { flex: 1 1 200px; width: auto; }
+.task-toolbar select { flex: 0 0 auto; width: auto; }
+.task-toolbar .btn-secondary { padding: 0.55rem 1rem; }
+.task-toolbar [hidden] { display: none; }
+
+.checklist-item { border-left: 4px solid transparent; }
+.checklist-item.priority-high { border-left-color: var(--danger); }
+.checklist-item.priority-medium { border-left-color: var(--warning); }
+.checklist-item.priority-low { border-left-color: var(--success); }
+.checklist-item.completed { opacity: 0.7; }
+.checklist-item.overdue .task-meta { color: var(--danger); font-weight: 600; }
+.task-text { display: flex; flex-direction: column; gap: 0.15rem; min-width: 0; }
+.task-meta { color: var(--text-muted); font-size: 0.78rem; }
+.checklist-item.completed .task-text span { text-decoration: line-through; color: var(--text-muted); }
+
+/* ---------- Projects: status + progress ---------- */
+.project-status-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; }
+.progress-number { font-weight: 700; font-size: 0.9rem; }
+.status-pill { padding: 0.2rem 0.6rem; border-radius: 999px; font-size: 0.75rem; font-weight: 600; }
+.status-todo { background-color: rgba(120, 120, 140, 0.15); color: var(--text-muted); }
+.status-doing { background-color: rgba(99, 102, 241, 0.12); color: var(--accent); }
+.status-done { background-color: rgba(16, 185, 129, 0.12); color: var(--success); }
+
+.mini-progress { height: 8px; border-radius: 999px; background-color: var(--border-color); overflow: hidden; margin-bottom: 1rem; }
+.mini-progress-fill { height: 100%; background-color: var(--accent); border-radius: 999px; transition: width 0.4s ease-out; }
+.project-card .mini-progress-fill { background-color: var(--accent); }
+.overdue-flag { color: var(--danger); font-weight: 600; }
+
+input[type="range"] { padding: 0; height: 2.2rem; accent-color: var(--accent); cursor: pointer; border: none; background: transparent; }
+
+/* ---------- Charts ---------- */
+.charts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1rem;
+}
+.charts-grid .container-card { margin-bottom: 0; }
+.charts-grid + .form-container { margin-top: 1.5rem; }
+.chart-box { min-height: 160px; display: flex; align-items: center; justify-content: center; }
+.chart-svg { width: 100%; max-width: 480px; height: auto; display: block; }
+
+.chart-axis { stroke: var(--border-color); stroke-width: 1; }
+.chart-bar { fill: var(--accent); }
+.chart-bar:hover { fill: var(--accent-hover); }
+.chart-value { fill: var(--text-main); font-size: 11px; font-weight: 600; }
+.chart-label { fill: var(--text-muted); font-size: 11px; }
+.chart-center-value { fill: var(--text-main); font-size: 17px; font-weight: 700; }
+
+.donut-wrap { display: flex; align-items: center; justify-content: center; gap: 1.5rem; flex-wrap: wrap; width: 100%; }
+.chart-donut { max-width: 180px; }
+.donut-track { stroke: var(--border-color); }
+.donut-seg { transition: opacity 0.2s; }
+.donut-seg:hover { opacity: 0.8; }
+.seg-paid { stroke: var(--success); }
+.seg-pending { stroke: var(--warning); }
+.seg-proposed { stroke: var(--accent); }
+.chart-legend { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.9rem; }
+.chart-legend li { display: flex; align-items: center; gap: 0.5rem; }
+.legend-dot { width: 12px; height: 12px; border-radius: 50%; display: inline-block; background-color: var(--border-color); }
+.legend-dot.seg-paid { background-color: var(--success); }
+.legend-dot.seg-pending { background-color: var(--warning); }
+.legend-dot.seg-proposed { background-color: var(--accent); }
+
+/* ---------- Backup ---------- */
+.backup-actions { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+.backup-actions button { border: none; padding: 0.65rem 1.25rem; border-radius: 6px; cursor: pointer; font-weight: 500; }
+.backup-status { margin-top: 0.75rem; font-size: 0.9rem; color: var(--success); min-height: 1.2em; }
+.backup-status.backup-error { color: var(--danger); }
+
 /* ---------- Mobile ---------- */
 @media (max-width: 576px) {
     .crud-form-row { flex-direction: column; }

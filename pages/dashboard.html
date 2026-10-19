@@ -26,19 +26,45 @@
             <p id="stat-streak">🔥 1 Day</p>
             <small>Days in a row you opened the tracker</small>
         </div>
+        <div class="stat-card">
+            <h4>Active Projects</h4>
+            <p id="stat-projects">0</p>
+            <small id="stat-projects-sub">Not finished yet</small>
+        </div>
     </div>
 
     <div class="checklist-section container-card">
         <h3>🎯 Today's Mission Checklist</h3>
 
-        <form id="checklist-form" class="crud-form-row">
+        <form id="checklist-form" class="crud-form-row task-form">
             <input type="text" id="checklist-input" placeholder="Enter your next mission task..." required autocomplete="off">
+            <select id="checklist-priority" aria-label="Priority">
+                <option value="High">🔴 High</option>
+                <option value="Medium" selected>🟡 Medium</option>
+                <option value="Low">🟢 Low</option>
+            </select>
+            <input type="date" id="checklist-due" aria-label="Due date">
             <button type="submit">Add Mission</button>
         </form>
+
+        <div class="task-toolbar">
+            <input type="search" id="checklist-search" placeholder="🔍 Search missions..." autocomplete="off" aria-label="Search missions">
+            <select id="checklist-filter" aria-label="Filter missions">
+                <option value="all">All</option>
+                <option value="active">Active</option>
+                <option value="done">Done</option>
+            </select>
+            <button type="button" id="clear-completed-btn" class="btn-secondary" hidden>Clear completed</button>
+        </div>
 
         <ul id="checklist-container" class="checklist-list-group">
             <p class="empty-text">No missions added for today yet!</p>
         </ul>
+    </div>
+
+    <div class="container-card">
+        <h3>📈 Missions Completed (Last 7 Days)</h3>
+        <div id="weekly-chart" class="chart-box"></div>
     </div>
 
     <div class="card card-quote">

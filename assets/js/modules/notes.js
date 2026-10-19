@@ -1,13 +1,4 @@
-import { storage } from './storage.js';
-
-/** Keys owned by the app. "Purge" removes these but keeps the theme choice. */
-const APP_KEYS = [
-    'july_tasks',
-    'july_projects',
-    'july_earnings',
-    'july_streak',
-    'daily_scratchpad'
-];
+import { storage, APP_KEYS } from './storage.js';
 
 export function initNotes() {
     const textarea = document.getElementById('system-notes-area');
@@ -40,7 +31,7 @@ export function initNotes() {
 
     if (resetBtn) {
         resetBtn.addEventListener('click', () => {
-            if (!confirm('Delete ALL missions, projects, earnings, streak and notes? This cannot be undone.')) return;
+            if (!confirm('Delete ALL missions, projects, earnings, streak and notes? This cannot be undone. (Tip: export a backup first.)')) return;
             APP_KEYS.forEach(key => storage.remove(key));
             // replaceState does not fire "hashchange", so no half-finished page fetch gets cut off by the reload
             history.replaceState(null, '', '#dashboard');

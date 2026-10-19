@@ -1,16 +1,9 @@
-import { storage } from './storage.js';
+import { storage, dayKey } from './storage.js';
 
 /**
- * Dashboard: month progress bar, live revenue total and daily streak.
- * (Mission counter is updated by checklist.js.)
+ * Dashboard: month progress bar, revenue total, active projects and daily streak.
+ * (Mission counter and the weekly chart are handled by checklist.js.)
  */
-
-function todayKey(date = new Date()) {
-    const y = date.getFullYear();
-    const m = String(date.getMonth() + 1).padStart(2, '0');
-    const d = String(date.getDate()).padStart(2, '0');
-    return `${y}-${m}-${d}`;
-}
 
 function updateMonthProgress() {
     const bar = document.getElementById('monthly-progress-bar');
@@ -35,10 +28,27 @@ function updateRevenue() {
     el.textContent = `$${total.toFixed(2)}`;
 }
 
+function updateProjects() {
+    const count = document.getElementById('stat-projects');
+    const sub = document.getElementById('stat-projects-sub');
+    if (!count) return;
+    const projects = storage.get('july_projects', []);
+    const active = projects.filter(p => p.status !== 'Done');
+    const today = dayKey();
+    const overdue = active.filter(p => p.deadline && p.deadline < today).length;
+
+    count.textContent = String(active.length);
+    if (sub) {
+        sub.textContent = overdue > 0
+            ? `${overdue} overdue`
+            : projects.length ? `${projects.length - active.length} finished` : 'Not finished yet';
+    }
+}
+
 /** Streak = consecutive days the tracker was opened. */
 function updateStreak() {
     const el = document.getElementById('stat-streak');
-    const today = todayKey();
+    const today = dayKey();
     const yesterday = new Date();
     yesterday.setDate(yesterday.getDate() - 1);
 
@@ -46,7 +56,7 @@ function updateStreak() {
     let { last, count } = saved;
 
     if (last !== today) {
-        count = last === todayKey(yesterday) ? count + 1 : 1;
+        count = last === dayKey(yesterday) ? count + 1 : 1;
         storage.set('july_streak', { last: today, count });
     }
 
@@ -56,5 +66,6 @@ function updateStreak() {
 export function initDashboard() {
     updateMonthProgress();
     updateRevenue();
+    updateProjects();
     updateStreak();
 }
