@@ -1,4 +1,4 @@
-import { storage } from './storage.js';
+import { storage, escapeHtml } from './storage.js';
 
 export function initChecklist() {
     const form = document.getElementById('checklist-form');
@@ -15,6 +15,7 @@ export function initChecklist() {
         list.innerHTML = '';
         if (tasks.length === 0) {
             list.innerHTML = `<p class="empty-text">No missions added for today yet!</p>`;
+            updateDashboardStats();
             return;
         }
 
@@ -24,7 +25,7 @@ export function initChecklist() {
             li.innerHTML = `
                 <div class="task-info">
                     <input type="checkbox" ${task.completed ? 'checked' : ''} data-id="${task.id}">
-                    <span>${task.text}</span>
+                    <span>${escapeHtml(task.text)}</span>
                 </div>
                 <div class="task-actions">
                     <button class="edit-btn" data-id="${task.id}">✏️</button>

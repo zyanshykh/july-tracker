@@ -1,33 +1,60 @@
-import { Storage } from './storage.js';
+import { storage } from './storage.js';
 
 /**
- * Metric Card Operations & Monthly Progress Calculation Component
+ * Dashboard: month progress bar, live revenue total and daily streak.
+ * (Mission counter is updated by checklist.js.)
  */
-export function initDashboard() {
-    // Dynamic July Monthly Target Bar Logic
-    const progressPercentEl = document.getElementById('progress-percent');
-    const progressBarEl = document.getElementById('monthly-progress-bar');
-    
-    function calculateJulyProgress() {
-        const now = new Date();
-        // Target calculation restricted targeting current year
-        if (now.getMonth() === 6) { // 6 is July in JS
-            const totalDays = new Date(now.getFullYear(), 7, 0).getDate(); 
-            const currentDay = now.getDate();
-            const percentage = Math.round((currentDay / totalDays) * 100);
-            
-            progressBarEl.style.width = `${percentage}%`;
-            progressPercentEl.textContent = `${percentage}% of Month Elapsed`;
-        } else {
-            progressBarEl.style.width = '100%';
-            progressPercentEl.textContent = 'July cycle absolute/ended';
-        }
+
+function todayKey(date = new Date()) {
+    const y = date.getFullYear();
+    const m = String(date.getMonth() + 1).padStart(2, '0');
+    const d = String(date.getDate()).padStart(2, '0');
+    return `${y}-${m}-${d}`;
+}
+
+function updateMonthProgress() {
+    const bar = document.getElementById('monthly-progress-bar');
+    const label = document.getElementById('progress-percent');
+    const monthName = document.getElementById('month-name');
+
+    const now = new Date();
+    const totalDays = new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate();
+    const percent = Math.round((now.getDate() / totalDays) * 100);
+    const name = now.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+
+    if (monthName) monthName.textContent = name;
+    if (bar) bar.style.width = `${percent}%`;
+    if (label) label.textContent = `${percent}% of ${name} elapsed (day ${now.getDate()} of ${totalDays})`;
+}
+
+function updateRevenue() {
+    const el = document.getElementById('total-revenue-value');
+    if (!el) return;
+    const earnings = storage.get('july_earnings', []);
+    const total = earnings.reduce((sum, e) => sum + (parseFloat(e.amount) || 0), 0);
+    el.textContent = `$${total.toFixed(2)}`;
+}
+
+/** Streak = consecutive days the tracker was opened. */
+function updateStreak() {
+    const el = document.getElementById('stat-streak');
+    const today = todayKey();
+    const yesterday = new Date();
+    yesterday.setDate(yesterday.getDate() - 1);
+
+    const saved = storage.get('july_streak', { last: null, count: 0 });
+    let { last, count } = saved;
+
+    if (last !== today) {
+        count = last === todayKey(yesterday) ? count + 1 : 1;
+        storage.set('july_streak', { last: today, count });
     }
 
-    // Static Mock Data configurations for Feature metrics
-    document.getElementById('stat-streak').textContent = Storage.get('sys_streak', '5 Days');
-    document.getElementById('stat-commits').textContent = Storage.get('sys_commits', '42');
-    document.getElementById('stat-hours').textContent = Storage.get('sys_hours', '14.5 hrs');
+    if (el) el.textContent = `🔥 ${count} ${count === 1 ? 'Day' : 'Days'}`;
+}
 
-    calculateJulyProgress();
+export function initDashboard() {
+    updateMonthProgress();
+    updateRevenue();
+    updateStreak();
 }

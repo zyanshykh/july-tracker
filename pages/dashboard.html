@@ -1,7 +1,13 @@
 <div class="dashboard-wrapper">
     <div class="dashboard-hero">
         <h2>Welcome Back, Captain! 🚀</h2>
-        <p>Here is your production metrics overview for the month of July.</p>
+        <p>Here is your production metrics overview for <strong id="month-name">this month</strong>.</p>
+        <div class="progress-container">
+            <div class="progress-bar-wrapper">
+                <div id="monthly-progress-bar" class="progress-bar"></div>
+            </div>
+            <span id="progress-percent">0% of month elapsed</span>
+        </div>
     </div>
 
     <div class="stats-grid">
@@ -17,14 +23,14 @@
         </div>
         <div class="stat-card">
             <h4>Daily Streak</h4>
-            <p>🔥 12 Days</p>
-            <small>Keep consistency alive!</small>
+            <p id="stat-streak">🔥 1 Day</p>
+            <small>Days in a row you opened the tracker</small>
         </div>
     </div>
 
     <div class="checklist-section container-card">
         <h3>🎯 Today's Mission Checklist</h3>
-        
+
         <form id="checklist-form" class="crud-form-row">
             <input type="text" id="checklist-input" placeholder="Enter your next mission task..." required autocomplete="off">
             <button type="submit">Add Mission</button>
@@ -33,5 +39,10 @@
         <ul id="checklist-container" class="checklist-list-group">
             <p class="empty-text">No missions added for today yet!</p>
         </ul>
+    </div>
+
+    <div class="card card-quote">
+        <p id="quote-text">"Loading quote..."</p>
+        <span id="quote-author"></span>
     </div>
 </div>

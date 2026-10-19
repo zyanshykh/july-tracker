@@ -1,19 +1,50 @@
-import { Storage } from './storage.js';
+import { storage } from './storage.js';
+
+/** Keys owned by the app. "Purge" removes these but keeps the theme choice. */
+const APP_KEYS = [
+    'july_tasks',
+    'july_projects',
+    'july_earnings',
+    'july_streak',
+    'daily_scratchpad'
+];
 
 export function initNotes() {
-    const textarea = document.getElementById('notes-textarea');
-    const status = document.getElementById('notes-status');
+    const textarea = document.getElementById('system-notes-area');
+    const status = document.getElementById('auto-save-status');
+    const clearBtn = document.getElementById('clear-notes-btn');
+    const resetBtn = document.getElementById('factory-reset-btn');
 
-    // Load previously saved logs
-    textarea.value = Storage.get('daily_scratchpad', '');
+    if (textarea) {
+        textarea.value = storage.get('daily_scratchpad', '');
 
-    // Auto-save keyup implementation
-    textarea.addEventListener('input', () => {
-        status.textContent = 'Saving...';
-        Storage.set('daily_scratchpad', textarea.value);
-        
-        setTimeout(() => {
-            status.textContent = 'Auto-saved to LocalStorage';
-        }, 500);
-    });
+        let timer;
+        textarea.addEventListener('input', () => {
+            if (status) status.textContent = 'Saving...';
+            storage.set('daily_scratchpad', textarea.value);
+            clearTimeout(timer);
+            timer = setTimeout(() => {
+                if (status) status.textContent = 'All edits saved locally';
+            }, 500);
+        });
+    }
+
+    if (clearBtn && textarea) {
+        clearBtn.addEventListener('click', () => {
+            if (!confirm('Wipe the whole notebook? This cannot be undone.')) return;
+            textarea.value = '';
+            storage.remove('daily_scratchpad');
+            if (status) status.textContent = 'Notebook wiped';
+        });
+    }
+
+    if (resetBtn) {
+        resetBtn.addEventListener('click', () => {
+            if (!confirm('Delete ALL missions, projects, earnings, streak and notes? This cannot be undone.')) return;
+            APP_KEYS.forEach(key => storage.remove(key));
+            // replaceState does not fire "hashchange", so no half-finished page fetch gets cut off by the reload
+            history.replaceState(null, '', '#dashboard');
+            window.location.reload();
+        });
+    }
 }

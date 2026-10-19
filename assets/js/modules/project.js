@@ -1,4 +1,4 @@
-import { storage } from './storage.js';
+import { storage, escapeHtml } from './storage.js';
 
 export function initProjectManager() {
     const form = document.getElementById('project-form');
@@ -28,12 +28,12 @@ export function initProjectManager() {
             card.className = `project-card priority-${proj.priority.toLowerCase()}`;
             card.innerHTML = `
                 <div class="project-header">
-                    <h3>${proj.title}</h3>
-                    <span class="badge font-weight-bold">${proj.priority}</span>
+                    <h3>${escapeHtml(proj.title)}</h3>
+                    <span class="badge font-weight-bold">${escapeHtml(proj.priority)}</span>
                 </div>
                 <div class="project-details">
-                    <p><strong>Deadline:</strong> ${proj.deadline}</p>
-                    <p><strong>Logged Hours:</strong> ${proj.hours} hrs</p>
+                    <p><strong>Deadline:</strong> ${escapeHtml(proj.deadline)}</p>
+                    <p><strong>Logged Hours:</strong> ${escapeHtml(proj.hours)} hrs</p>
                 </div>
                 <div class="project-actions">
                     <button class="edit-proj-btn btn-sm" data-id="${proj.id}">Edit</button>

@@ -1,4 +1,4 @@
-import { storage } from './storage.js';
+import { storage, escapeHtml } from './storage.js';
 
 export function initAnalytics() {
     const form = document.getElementById('analytics-form');
@@ -29,9 +29,9 @@ export function initAnalytics() {
             totalRevenue += parseFloat(earn.amount || 0);
             const tr = document.createElement('tr');
             tr.innerHTML = `
-                <td><strong>${earn.client}</strong></td>
+                <td><strong>${escapeHtml(earn.client)}</strong></td>
                 <td>$${parseFloat(earn.amount).toFixed(2)}</td>
-                <td><span class="status-tag status-${earn.status.toLowerCase()}">${earn.status}</span></td>
+                <td><span class="status-tag status-${escapeHtml(earn.status.toLowerCase())}">${escapeHtml(earn.status)}</span></td>
                 <td>
                     <button class="edit-earn-btn btn-icon" data-id="${earn.id}">✏️</button>
                     <button class="delete-earn-btn btn-icon btn-danger" data-id="${earn.id}">🗑️</button>
